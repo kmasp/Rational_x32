@@ -1,3 +1,7 @@
+//Team x32 -- Kyle & Zuhra
+//APCS1 pd5
+//HW32 -- Do you even add bro?
+//2015-11-18
 
 public class Rational 
 {
@@ -11,7 +15,7 @@ public class Rational
         _n = 0;
         _d = 1;
     }
-
+    //overloaded Constructor
     public Rational(int n, int d)
     {
         this();
@@ -67,6 +71,9 @@ public class Rational
     }
 
     public void add (Rational fraction){
+    //Adding method
+    public void add(Rational fraction){
+        //common multiple
         int multiple = _d * fraction.getD();
         int m1 = multiple / _d ;
         int m2 = multiple / fraction.getD();
@@ -76,6 +83,48 @@ public class Rational
         else 
             _d = multiple;
             _n = (_n * m1) + (fraction.getN() * m2);
+    }
+
+     //Subtract method
+    public void subtract(Rational fraction){
+        int multiple = _d * fraction.getD();
+            int m1 = multiple / _d ;
+            int m2 = multiple / fraction.getD();
+        if (_d==fraction.getD()) {
+            _n+=fraction.getN();
+            _d=fraction.getD();}
+        else 
+            _d = multiple;
+            _n = (_n * m1) - (fraction.getN() * m2);
+    }
+     //Using Euclid's Algorithm to find the gcd
+public static int gcdER (Rational r){
+        int a = r.getN();
+        int b = r.getD();
+        //itterative version
+        int maxNum = Math.max(a,b); //First number has to be bigger
+        int minNum = Math.min(a,b);
+        if (minNum == 0) return maxNum; // tests the zero case
+        if (maxNum % minNum == 0) return minNum; //tests the zero case
+        while (minNum != 0) {
+        maxNum = maxNum - minNum;
+        if (maxNum < minNum) {
+        int temp = minNum;
+        minNum = maxNum;
+        maxNum = temp;
+        }
+    }
+    return maxNum;
+    }
+    //Reducing fractions method
+    public static String reduce (Rational f){
+        String returns = "";
+        //using gcdER to find the greatest common divisor of the Rational
+        int h = gcdER(f);
+        int newn = (f.getN() / h); //new numerator
+        int newd = (f.getD() / h); //new denominator
+        returns+= newn + "/" + newd; 
+        return returns;
     }
     public static void main(String[] args){
       Rational r = new Rational(2,3); //Stores the rational number 2/3
