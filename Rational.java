@@ -121,14 +121,13 @@ public static int gcdER (Rational r){
     }
 
     //Reducing fractions method
-    public static String reduce (Rational f){
-        String returns = "";
+    public void reduce(){
         //using gcdER to find the greatest common divisor of the Rational
-        int h = gcdER(f);
-        int newn = (f.getN() / h); //new numerator
-        int newd = (f.getD() / h); //new denominator
-        returns+= newn + "/" + newd; 
-        return returns;
+        Rational e = new Rational (_n, _d);
+        int h = gcdER(e);
+        _n = (_n / h); //new numerator
+        _d = (_d / h); //new denominator
+        
     }
     
     public static void main(String[] args){
@@ -171,8 +170,10 @@ public static int gcdER (Rational r){
     //testing reduce
     Rational i = new Rational(4,50);
     Rational j = new Rational(6,42);
-    System.out.println(reduce(i)); //should print 2 / 25
-    System.out.println(reduce(j)); //should print 1 / 7
+    i.reduce();
+    j.reduce();
+    System.out.println(i); //should print 2 / 25
+    System.out.println(j); //should print 1 / 7
 
 
     }
