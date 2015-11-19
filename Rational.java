@@ -120,6 +120,24 @@ public static int gcdER (Rational r){
     return maxNum;
     }
 
+public static int gcd (int n, int d) {
+        //itterative version
+        int maxNum = Math.max(n,d); //First number has to be bigger
+        int minNum = Math.min(n,d);
+        if (minNum == 0) return maxNum; // tests the zero case
+        if (maxNum % minNum == 0) return minNum; //tests the zero case
+        while (minNum != 0) {
+        maxNum = maxNum - minNum;
+        if (maxNum < minNum) {
+        int temp = minNum;
+        minNum = maxNum;
+        maxNum = temp;
+        }
+    }
+    return maxNum;
+    }
+
+
     //Reducing fractions method
     public void reduce(){
         //using gcdER to find the greatest common divisor of the Rational
@@ -129,7 +147,19 @@ public static int gcdER (Rational r){
         _d = (_d / h); //new denominator
         
     }
-    
+
+    public int compareTo(Rational a){
+        int n = a.getN();
+        int d = a.getD();
+        if (a.floatValue() == 1.0*_n / _d) {
+            return 0;
+        }
+        else if (1.0*_n / _d > a.floatValue()) {
+            return 1;
+        }
+        else 
+            {return -1;}}
+
     public static void main(String[] args){
     
     //testing multiply
@@ -143,6 +173,14 @@ public static int gcdER (Rational r){
     Rational k = new Rational(1,2);
     z.divide(k); //should give 0 / 3
     System.out.println(z);
+
+
+    //testing compareTo
+    System.out.println(z.compareTo(k)); //should return -1
+    Rational q = new Rational(3,6);
+    Rational t = new Rational(4,8);
+    System.out.println(q.compareTo(t)); //should return 0
+
 
     Rational a = new Rational(1, 2);
     Rational b = new Rational(1, 2);
@@ -161,11 +199,17 @@ public static int gcdER (Rational r){
     e.add(f); //should give 7 / 6
     System.out.println(e);
 
-    //testing gcd
+    //testing gcdER
     Rational g = new Rational(4,50);
     Rational h = new Rational(6,42);
     System.out.println(gcdER(g)); //should print 2
     System.out.println(gcdER(h)); //should print 6
+    //testing gcd
+    System.out.println(gcd(4, 50)); //should print 2
+    System.out.println(gcd(6, 42)); //should print 6
+
+
+
 
     //testing reduce
     Rational i = new Rational(4,50);
