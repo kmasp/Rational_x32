@@ -12,6 +12,7 @@ public class Rational
     // Constructors
     public Rational()
     {
+        //setting values for the instance variables
         _n = 0;
         _d = 1;
     }
@@ -19,12 +20,14 @@ public class Rational
     public Rational(int n, int d)
     {
         this();
+        //denominator cannot be 0
         if (d != 0)
         {
             _n = n;
             _d = d;
         }
         else
+        //if the denominator is 0, then return an error message
             System.out.println("Invalid. Fraction set to 0 / 1");
     }
 
@@ -69,8 +72,7 @@ public class Rational
         else
             System.out.println("Divide by Zero error.");
     }
-
-    public void add (Rational fraction){
+    
     //Adding method
     public void add(Rational fraction){
         //common multiple
@@ -97,6 +99,7 @@ public class Rational
             _d = multiple;
             _n = (_n * m1) - (fraction.getN() * m2);
     }
+     
      //Using Euclid's Algorithm to find the gcd
 public static int gcdER (Rational r){
         int a = r.getN();
@@ -116,6 +119,7 @@ public static int gcdER (Rational r){
     }
     return maxNum;
     }
+
     //Reducing fractions method
     public static String reduce (Rational f){
         String returns = "";
@@ -126,19 +130,50 @@ public static int gcdER (Rational r){
         returns+= newn + "/" + newd; 
         return returns;
     }
+    
     public static void main(String[] args){
-      Rational r = new Rational(2,3); //Stores the rational number 2/3
-Rational s = new Rational(1,2); //Stores the rational number 1/2
-r.multiply(s); //Multiplies r by s, changes r to 2/6.  s remains ½
-System.out.println(r);
-r.divide(s);
-System.out.println(r);
-Rational z = new Rational(0,3);
-Rational k = new Rational(1,2);
-z.add(k);
-System.out.println(z);
-z.divide(k);
-System.out.println(z);
+    
+    //testing multiply
+    Rational r = new Rational(2,3); //Stores the rational number 2/3
+    Rational s = new Rational(1,2); //Stores the rational number 1/2
+    r.multiply(s); //Multiplies r by s, changes r to 2/6.  s remains ½
+    System.out.println(r);
+
+    //testing divide
+    Rational z = new Rational(0,3);
+    Rational k = new Rational(1,2);
+    z.divide(k); //should give 0 / 3
+    System.out.println(z);
+
+    Rational a = new Rational(1, 2);
+    Rational b = new Rational(1, 2);
+    b.divide(a); //should give 2 / 2
+    System.out.println(b);
+
+    //testing add
+    Rational c = new Rational(0,3);
+    Rational d = new Rational(1,2);
+    c.add(d); //should give 3 / 6
+    System.out.println(c);
+
+    //testing subtract
+    Rational e = new Rational(5,3);
+    Rational f = new Rational(1,2);
+    e.add(f); //should give 7 / 6
+    System.out.println(e);
+
+    //testing gcd
+    Rational g = new Rational(4,50);
+    Rational h = new Rational(6,42);
+    System.out.println(gcdER(g)); //should print 2
+    System.out.println(gcdER(h)); //should print 6
+
+    //testing reduce
+    Rational i = new Rational(4,50);
+    Rational j = new Rational(6,42);
+    System.out.println(reduce(i)); //should print 2 / 25
+    System.out.println(reduce(j)); //should print 1 / 7
+
 
     }
 }
